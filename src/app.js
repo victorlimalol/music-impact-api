@@ -1,6 +1,7 @@
-import clienteController from "./controller/clienteController.js";
-import usuarioController from "./controller/usuarioController.js";
-import orcamentoController from "./controller/orcamentoController.js";
+import adminController from "./controller/adminController.js";
+import courseController from "./controller/courseController.js";
+import studentsController from "./controller/studentsController.js";
+import teacherController from "./controller/teacherController.js";
 
 import "dotenv/config";
 import express from "express";
@@ -10,9 +11,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use(clienteController);
-app.use(usuarioController);
-app.use(orcamentoController);
+app.use(adminController);
+app.use(courseController);
+app.use(studentsController);
+app.use(teacherController);
 
 let port = process.env.PORT;
 app.listen(port, () => console.log("API SUBIU!"));

@@ -1,3 +1,5 @@
+import 'dotenv/config'
+
 import adminController from "./controller/adminController.js";
 import courseController from "./controller/courseController.js";
 import studentsController from "./controller/studentsController.js";

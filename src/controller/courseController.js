@@ -12,6 +12,8 @@ let router = Router();
 router.post("/course/create", async (req, resp) => {
   let data = req.body;
 
+  console.log(data)
+
   if (!data.name || !data.modality || !data.description) {
     return resp
       .status(400)

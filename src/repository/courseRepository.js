@@ -43,6 +43,22 @@ export async function deleteCourse(courseId) {
   return response[0].affectedRows > 0;
 }
 
+export async function getCourseById(courseId) {
+  let query = `
+    SELECT * FROM courses
+    WHERE id = ?
+  `;
+
+  let response = await con.query(query, [courseId]);
+  let courses = response[0];
+
+  if (courses.length > 0) {
+    return courses[0];
+  } else {
+    return null;
+  }
+}
+
 export async function listCourses() {
   let query = `
     SELECT * FROM courses

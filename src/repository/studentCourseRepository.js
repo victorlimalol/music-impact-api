@@ -14,6 +14,30 @@ export async function associateStudentToCourse(studentId, courseId) {
   }
 }
 
+export async function getCoursesByStudentId(studentId) {
+  const comando = `
+    SELECT course_id FROM students_courses WHERE student_id = ?
+  `;
+
+  try {
+    const resposta = await con.query(comando, [studentId]);
+    return resposta[0].map(row => row.course_id);
+  } catch (error) {
+    console.error("Error fetching courses for student:", error);
+    throw new Error("Failed to fetch courses for student");
+  }
+}
+
+export async function removeStudentFromAllCourses(studentId) {
+  const coursesByStudentId = await getCoursesByStudentId(studentId);
+
+  await Promise.all(coursesByStudentId.map(async (courseId) => {
+    await removeStudentFromCourse(studentId, courseId);
+  }));
+
+  return true;
+}
+
 export async function removeStudentFromCourse(studentId, courseId) {
   const comando = `
     DELETE FROM students_courses
